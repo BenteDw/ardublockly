@@ -20,13 +20,12 @@ Blockly.Blocks['setup_block'] = {
     this.appendDummyInput()
         .appendField("Setup");
     this.appendDummyInput()
-        .appendField("Tester?")
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "testercheck");
-    this.appendStatementInput("NAME")
-        .setCheck("function")
-        .appendField("Functions:");
-    this.setColour(315);
- this.setTooltip("This sets up everything");
- this.setHelpUrl("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+        .appendField("Test ledjes:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "NAME");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(90);
+ this.setTooltip("");
+ this.setHelpUrl("");
   }
 };  
