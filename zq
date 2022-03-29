@@ -1,0 +1,86 @@
+GIT-GUI(1)                                          Git Manual                                         GIT-GUI(1)
+
+NNAAMMEE
+       git-gui - A portable graphical interface to Git
+
+SSYYNNOOPPSSIISS
+       _g_i_t _g_u_i [<command>] [arguments]
+
+DDEESSCCRRIIPPTTIIOONN
+       A Tcl/Tk based graphical user interface to Git. _g_i_t _g_u_i focuses on allowing users to make changes to their
+       repository by making new commits, amending existing ones, creating branches, performing local merges, and
+       fetching/pushing to remote repositories.
+
+       Unlike _g_i_t_k, _g_i_t _g_u_i focuses on commit generation and single file annotation and does not show project
+       history. It does however supply menu actions to start a _g_i_t_k session from within _g_i_t _g_u_i.
+
+       _g_i_t _g_u_i is known to work on all popular UNIX systems, Mac OS X, and Windows (under both Cygwin and MSYS).
+       To the extent possible OS specific user interface guidelines are followed, making _g_i_t _g_u_i a fairly native
+       interface for users.
+
+CCOOMMMMAANNDDSS
+       blame
+           Start a blame viewer on the specified file on the given version (or working directory if not
+           specified).
+
+       browser
+           Start a tree browser showing all files in the specified commit. Files selected through the browser are
+           opened in the blame viewer.
+
+       citool
+           Start _g_i_t _g_u_i and arrange to make exactly one commit before exiting and returning to the shell. The
+           interface is limited to only commit actions, slightly reducing the application’s startup time and
+           simplifying the menubar.
+
+       version
+           Display the currently running version of _g_i_t _g_u_i.
+
+EEXXAAMMPPLLEESS
+       ggiitt gguuii bbllaammee MMaakkeeffiillee
+           Show the contents of the file _M_a_k_e_f_i_l_e in the current working directory, and provide annotations for
+           both the original author of each line, and who moved the line to its current location. The uncommitted
+           file is annotated, and uncommitted changes (if any) are explicitly attributed to _N_o_t _Y_e_t _C_o_m_m_i_t_t_e_d.
+
+       ggiitt gguuii bbllaammee vv00..9999..88 MMaakkeeffiillee
+           Show the contents of _M_a_k_e_f_i_l_e in revision _v_0_._9_9_._8 and provide annotations for each line. Unlike the
+           above example the file is read from the object database and not the working directory.
+
+       ggiitt gguuii bbllaammee ----lliinnee==110000 MMaakkeeffiillee
+           Loads annotations as described above and automatically scrolls the view to center on line _1_0_0.
+
+       ggiitt gguuii cciittooooll
+           Make one commit and return to the shell when it is complete. This command returns a non-zero exit code
+           if the window was closed in any way other than by making a commit.
+
+       ggiitt gguuii cciittooooll ----aammeenndd
+           Automatically enter the _A_m_e_n_d _L_a_s_t _C_o_m_m_i_t mode of the interface.
+
+       ggiitt gguuii cciittooooll ----nnooccoommmmiitt
+           Behave as normal citool, but instead of making a commit simply terminate with a zero exit code. It
+           still checks that the index does not contain any unmerged entries, so you can use it as a GUI version
+           of ggiitt--mmeerrggeettooooll(1)
+
+       ggiitt cciittooooll
+           Same as ggiitt gguuii cciittooooll (above).
+
+       ggiitt gguuii bbrroowwsseerr mmaaiinntt
+           Show a browser for the tree of the _m_a_i_n_t branch. Files selected in the browser can be viewed with the
+           internal blame viewer.
+
+SSEEEE AALLSSOO
+       ggiittkk(1)
+           The Git repository browser. Shows branches, commit history and file differences. gitk is the utility
+           started by _g_i_t _g_u_i's Repository Visualize actions.
+
+OOTTHHEERR
+       _g_i_t _g_u_i is actually maintained as an independent project, but stable versions are distributed as part of
+       the Git suite for the convenience of end users.
+
+       The official repository of the _g_i_t _g_u_i project can be found at:
+
+           https://github.com/prati0100/git-gui.git/
+
+GGIITT
+       Part of the ggiitt(1) suite
+
+Git 2.25.1                                          09/09/2021                                         GIT-GUI(1)

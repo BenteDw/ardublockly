@@ -20,13 +20,14 @@ Blockly.Blocks['setup_block'] = {
     this.appendDummyInput()
         .appendField("Setup");
     this.appendDummyInput()
-        .appendField("Test ledjes:")
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "NAME");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(90);
- this.setTooltip("");
- this.setHelpUrl("");
+        .appendField("Test leds:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "testercheck");
+    this.appendStatementInput("FUNCS")
+        .setCheck("function")
+        .appendField("Functions:");
+    this.setColour(315);
+ this.setTooltip("This sets up everything");
+ this.setHelpUrl("https://www.youtube.com/watch?v=xvFZjo5PgG0");
   }
 };
 
@@ -54,7 +55,7 @@ Blockly.Blocks['create_effect'] = {
     this.appendDummyInput()
         .appendField("aanmaak effect");
     this.appendStatementInput("FUNCS")
-        .setCheck("effectPointer");
+        .setCheck(null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
