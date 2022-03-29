@@ -21,7 +21,7 @@ Blockly.Blocks['setup_block'] = {
         .appendField("Setup");
     this.appendDummyInput()
         .appendField("Test leds:")
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "testercheck");
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "LEDTESTER");
     this.appendStatementInput("FUNCS")
         .setCheck("function")
         .appendField("Functions:");
@@ -46,18 +46,6 @@ Blockly.Blocks['effect_block'] = {
     this.setNextStatement(true, null);
     this.setColour(210);
  this.setTooltip("keuze van voorgeprogrammeerde effecten");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['create_effect'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("aanmaak effect");
-    this.appendStatementInput("FUNCS")
-        .setCheck(null);
-    this.setColour(230);
- this.setTooltip("");
  this.setHelpUrl("");
   }
 };
