@@ -80,7 +80,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // If/else block that does not use a mutator.
   {
     "type": "controls_ifelse",
-    "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
+    "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1", 
     "args0": [
       {
         "type": "input_value",

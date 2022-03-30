@@ -15,8 +15,8 @@ Blockly.Blocks['ledder_block'] = {
   }
 }; 
 
-Blockly.Blocks['setup_block'] = {
-  init: function() {
+Blockly.Blocks['setup_block'] = { 
+  init: function() { 
     this.appendDummyInput()
         .appendField("Setup");
     this.appendDummyInput()
@@ -28,6 +28,7 @@ Blockly.Blocks['setup_block'] = {
     this.setColour(315);
  this.setTooltip("This sets up everything");
  this.setHelpUrl("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+    
   }
 };
 

@@ -164,7 +164,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       },
       {
         "type": "input_value",
-        "name": "LIST",
+        "name": "LIST", 
         "check": "Array"
       }
     ],
