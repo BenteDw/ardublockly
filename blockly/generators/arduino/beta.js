@@ -6,14 +6,22 @@ goog.require('Blockly.Blocks');
 Blockly.Arduino['ledder_block'] = function(block) {
   var dropdown_led = block.getFieldValue('LED');
   var dropdown_ledstate = block.getFieldValue('LEDSTATE');
-  // TODO: Assemble JavaScript into code variable.
-  var code = "registers[0]=" + dropdown_ledstate + ";\nwritereg();";
-  var pinSetupCode = 'pinMode(' + code + ', INPUT);\n';
-  Blockly.Arduino.addInclude("includeLed","//includes:");
-  Blockly.Arduino.addDeclaration("declairLed","//declarations:");
-  Blockly.Arduino.addSetup("setupvrLed","//setups:");  
+  dropdown_led = dropdown_led.replaceAll("L","");
+  console.log(dropdown_led);
+  if(dropdown_led<6)
+    {
+  var code = "registers[" + dropdown_led + "]=" + dropdown_ledstate + ";\nwritereg();\n";
+    }
+  else code = "memset(registers," + dropdown_ledstate + ",sizeof(registers));\nwritereg();\n"
   return code;
 };  
+
+
+Blockly.Arduino['write_block'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'writereg();\n';
+  return code;
+};
 
 
 
@@ -33,18 +41,12 @@ Blockly.Arduino['setup_block'] = function(block) {
   while (Index != -1)
 {
   Index= functies.indexOf(";");
-  console.log(Index);
   if(Index != -1)
     {
       testopslag.push(functies.substring(0,Index+1))
     }
   functies = functies.substring(Index+1);
 }
-  console.log(testopslag.length);
-  for(var counter=0; counter<=(testopslag.length);counter++)
-    {
-      console.log(testopslag[counter]);
-    }
   
   var epic = "switch(mode)\n{";
   for(var counter=0; counter<(testopslag.length);counter++)
@@ -62,7 +64,7 @@ Blockly.Arduino['setup_block'] = function(block) {
   
   Blockly.Arduino.addDeclaration("declairVar","int count = 0;\nint mode = 0;\nbool pressed = false;\nboolean registers[6];\nbool sleep = false;\nlong pressTime = 0;\nint ran;\nint prevRan;")
   
-  Blockly.Arduino.addFunction("ISR","ISR (PCINT0_vect) {\n  count++;\n if (count == 1) {\n pressTime = millis();}\n  if(count >= 2) {\n count = 0;\n  if(millis() - pressTime >= LONGPRESS) sleep = true;\n  else mode++;}\n  if (mode > " + testopslag.length + ") mode = 0;\n}");
+  Blockly.Arduino.addFunction("ISR","ISR (PCINT0_vect) {\n  count++;\n if (digitalRead(BUTTON)==HIGH) {\n pressTime = millis();}\n  if(digitalRead(BUTTON)==LOW) {\n count = 0;\n  if(millis() - pressTime >= LONGPRESS) sleep = true;\n  else mode++;}\n  if (mode >= " + testopslag.length + ") mode = 0;\n}");
 
   Blockly.Arduino.addFunction("sleep","void goToSleep() {\n  memset(registers,false,sizeof(registers));\n  writereg();\n\n  set_sleep_mode(SLEEP_MODE_PWR_DOWN);\n  power_all_disable ();  // power off ADC, Timer 0 and 1, serial interface\n  sleep_enable();\n  sleep_cpu();\n  sleep_disable(); //power everything back on\n  power_all_enable();\n  sleep=false;\n  count=-1;\n  mode=0;\n}");
     
@@ -70,13 +72,16 @@ Blockly.Arduino['setup_block'] = function(block) {
   
   if(testleds=="TRUE")
     { Blockly.Arduino.addSetup("setupSetup","pinMode(DATA,OUTPUT);\npinMode(RCLK,OUTPUT);\npinMode(SRCLK,OUTPUT);\npinMode(BUTTON,INPUT);\n\nmemset(registers,true,sizeof(registers));\nwritereg();\ndelay(DELAYML);\nmemset(registers,false,sizeof(registers));\nwritereg();\ndelay(DELAYML);")
-     console.log("ja");
+     
     }
   else
     {
  Blockly.Arduino.addSetup("setupSetup","pinMode(DATA,OUTPUT);\npinMode(RCLK,OUTPUT);\npinMode(SRCLK,OUTPUT);\npinMode(BUTTON,INPUT);")
-      console.log("no");
+      
     }
+  
+  Blockly.Arduino.addSetup("setupInterrupt","\nADCSRA = 0;\nPCMSK |= bit(PCINT4);\nGIFR |= bit(PCIF);\nGIMSK |= bit(PCIE);")
+
   
   var code = "if (sleep) goToSleep();\n";
   code+=epic;
