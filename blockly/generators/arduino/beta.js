@@ -67,7 +67,7 @@ Blockly.Arduino['setup_block'] = function(block) {
   }
   if(programmer=="TEST")
   {
-    Decl += "#define DATA 8 //data pin shift reg\n#define RCLK 6 //clock pin shift reg\n#define SRCLK 7 //latch pin shift reg\n#define BUTTON 2\n#define DELAYML 100\n#define LONGPRESS 1000\n\n"
+    Decl += "#define DATA 7 //data pin shift reg\n#define RCLK 5 //clock pin shift reg\n#define SRCLK 6 //latch pin shift reg\n#define BUTTON 2\n#define DELAYML 100\n#define LONGPRESS 1000\n\n"
     Func += "void buttonIntrupt() {\nif (digitalRead(BUTTON)==LOW) pressTime = millis();\nif(digitalRead(BUTTON)==HIGH) \n{\nif(millis() - pressTime >= LONGPRESS) sleep = true;\nelse mode++;\n}\nif (mode >= 2) mode = 0;\n}\n\n";
     Setp += ("pinMode(DATA,OUTPUT);\npinMode(RCLK,OUTPUT);\npinMode(SRCLK,OUTPUT);\npinMode(BUTTON,INPUT_PULLUP);")
     Setp += "\nattachInterrupt(digitalPinToInterrupt(BUTTON), buttonIntrupt, CHANGE);";
