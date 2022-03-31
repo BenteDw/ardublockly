@@ -20,6 +20,8 @@ Blockly.Blocks['setup_block'] = {
     this.appendDummyInput()
         .appendField("Setup");
     this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["LedUpKidz tester","TEST"], ["LedUpKidz final","FINAL"]]), "ProgSelecter");
+    this.appendDummyInput()
         .appendField("Test leds:")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "LEDTESTER");
     this.appendStatementInput("FUNCS")
