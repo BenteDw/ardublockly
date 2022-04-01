@@ -7,8 +7,6 @@ Blockly.Arduino['ledder_block'] = function(block) {
   var dropdown_led = block.getFieldValue('LED');
   var dropdown_ledstate = block.getFieldValue('LEDSTATE');
   dropdown_led = dropdown_led.replaceAll("L","");
-  if(dropdown_ledstate="Waar") dropdown_ledstate="true";
-  else dropdown_ledstate="false;"
   var code;
   if(dropdown_led<6)
     {
@@ -23,11 +21,7 @@ Blockly.Arduino['ledder_block_variabele'] = function(block) {
   var value_status = Blockly.Arduino.valueToCode(block, 'status', Blockly.Arduino.ORDER_ATOMIC || true);
   // TODO: Assemble JavaScript into code variable.
   var code;
-  if(value_led<6)
-    {
   code = "registers[" + value_led + "]=" + value_status + ";\nwritereg();\n";
-    }
-  else code = "memset(registers," + value_status + ",sizeof(registers));\nwritereg();\n"
   return code;
 };
 
@@ -77,7 +71,6 @@ Blockly.Arduino['setup_block'] = function(block) {
     Decl += ("#define DATA 0 //data pin shift reg\n#define RCLK 1 //latch pin shift reg\n#define SRCLK 2 //clock pin shift reg\n#define BUTTON 4\n#define DELAYML 100\n#define LONGPRESS 1000\n\n");
     
     Func += ("ISR (PCINT0_vect) {\n if (digitalRead(BUTTON)==HIGH) {\n pressTime = millis();}\n  if(digitalRead(BUTTON)==LOW) {\n  if(millis() - pressTime >= LONGPRESS) sleep = true;\n  else mode++;}\n  if (mode >= " + testopslag.length + ") mode = 0;\n}\n\n");
-    code = "if (sleep) goToSleep();\n";
     Setp += ("\nADCSRA = 0;\nPCMSK |= bit(PCINT4);\nGIFR |= bit(PCIF);\nGIMSK |= bit(PCIE);\n")
     Setp += ("pinMode(DATA,OUTPUT);\npinMode(RCLK,OUTPUT);\npinMode(SRCLK,OUTPUT);\npinMode(BUTTON,INPUT);")
   }
@@ -111,12 +104,3 @@ Blockly.Arduino['setup_block'] = function(block) {
   
   return code  + "\nif(sleep) goToSleep();";
 };  
-
-
-Blockly.Arduino['effect_block'] = function(block) {
-  var dropdown_effect = block.getFieldValue('EFFECT');
-  var dropdown_speed = block.getFieldValue('SPEED');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
-};
