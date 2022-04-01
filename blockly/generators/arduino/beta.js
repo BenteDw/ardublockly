@@ -7,13 +7,29 @@ Blockly.Arduino['ledder_block'] = function(block) {
   var dropdown_led = block.getFieldValue('LED');
   var dropdown_ledstate = block.getFieldValue('LEDSTATE');
   dropdown_led = dropdown_led.replaceAll("L","");
+  if(dropdown_ledstate="Waar") dropdown_ledstate="true";
+  else dropdown_ledstate="false;"
+  var code;
   if(dropdown_led<6)
     {
-  var code = "registers[" + dropdown_led + "]=" + dropdown_ledstate + ";\nwritereg();\n";
+   code = "registers[" + dropdown_led + "]=" + dropdown_ledstate + ";\nwritereg();\n";
     }
   else code = "memset(registers," + dropdown_ledstate + ",sizeof(registers));\nwritereg();\n"
   return code;
 };  
+
+Blockly.Arduino['ledder_block_variabele'] = function(block) {
+  var value_led = Blockly.Arduino.valueToCode(block, 'led', Blockly.Arduino.ORDER_ATOMIC || '0');
+  var value_status = Blockly.Arduino.valueToCode(block, 'status', Blockly.Arduino.ORDER_ATOMIC || true);
+  // TODO: Assemble JavaScript into code variable.
+  var code;
+  if(value_led<6)
+    {
+  code = "registers[" + value_led + "]=" + value_status + ";\nwritereg();\n";
+    }
+  else code = "memset(registers," + value_status + ",sizeof(registers));\nwritereg();\n"
+  return code;
+};
 
 
 Blockly.Arduino['write_block'] = function(block) {
